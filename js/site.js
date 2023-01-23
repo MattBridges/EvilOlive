@@ -11,14 +11,14 @@ function CheckForPalindrome(stringToCheck) {
   //Remove any character thats not a letter or number regardless of case.
   let cleanedString = stringToCheck.replace(/[^a-z0-9]/gi, '').toLowerCase();
 
-  //Iterate from outside to inside to see if input is palindrome and stop if not.
+  //Iterate from outside to inside to see if input is palindrome and return false if not.
   for(let i = 0; i<=(cleanedString.length/2);i++){
     if(cleanedString[i] != cleanedString[cleanedString.length-i-1]){
       //Not a palindrome
       return false;
     }    
   }
-  //If we make it through the check the word is a palindrome return as such
+  //If we make it through the check, the word is a palindrome so we return true
   return true;
 }
 

@@ -32,7 +32,6 @@
         <div class="container">
           <a class="navbar-brand" href="/index.html">
             <img src="/img/Base Logo Vector Files Blue Red.svg" height="50" alt="">
-            Evil Olive
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -76,64 +75,60 @@
           <pre class="line-numbers">
       <code class="language-js">
         //Entry Point
-        function GetValues() {
-          //Get the input string
-          let inputString = document.getElementById('userString').value;
-        
-          DisplayResults(CheckForPalindrome(inputString));
-        
-        }
-        
-        //Logic Function
-        function CheckForPalindrome(stringToCheck) {
-          //Remove any character thats not a letter or number regardless of case.
-          let cleanedString = stringToCheck.replace(/[^a-z0-9]/gi, '').toLowerCase();
-          let reversedString = cleanedString.split('').reverse().join('');
-        
-          if (reversedString == cleanedString) {
-            //Is a Palindrome
-            return {
-              str: reversedString,
-              isPalindrome: true
-            };
-          }
-          else {
-            //Not a Palindrome
-            return {
-              str: reversedString,
-              isPalindrome: false
-            };
-          }
-        }
-        
-        //View Function
-        function DisplayResults(result) {
-          let alertElement = document.getElementById('alert');
-          let alertHeading = document.getElementById('alertHeading');
-          let results = document.getElementById('results');
-        
-          if (result.isPalindrome) {
-            alertElement.classList.replace('alert-danger', 'alert-success');
-            alertHeading.textContent = 'Well Done!You entered a Palindrome';
-            results.textContent = `Your phrase reversed is: ${result.str}`;
-            alertElement.classList.remove('invisible');
-          }
-          else {
-            alertElement.classList.replace('alert-success', 'alert-danger');
-            alertHeading.textContent = 'Sorry, you did not enter a Palindrome!';
-            results.textContent = `Your phrase reversed is: ${result.str}`;
-            alertElement.classList.remove('invisible');
-          }
-        
-        
-        }
+function GetValues() {
+  //Get the input string
+  let inputString = document.getElementById('userString').value;
+
+  DisplayResults(inputString,CheckForPalindrome(inputString));
+}
+
+//Logic Function
+function CheckForPalindrome(stringToCheck) {
+  //Remove any character thats not a letter or number regardless of case.
+  let cleanedString = stringToCheck.replace(/[^a-z0-9]/gi, '').toLowerCase();
+
+  //Iterate from outside to inside to see if input is palindrome and return false if not.
+  for(let i = 0; i<=(cleanedString.length/2);i++){
+    if(cleanedString[i] != cleanedString[cleanedString.length-i-1]){
+      //Not a palindrome
+      return false;
+    }    
+  }
+  //If we make it through the check, the word is a palindrome so we return true
+  return true;
+}
+
+//View Function
+function DisplayResults(inputString, result) {
+  let alertElement = document.getElementById('alert');
+  let alertHeading = document.getElementById('alertHeading');
+  let results = document.getElementById('results');
+  let inputReversed = inputString.replace(/[^a-z0-9]/gi, '').toLowerCase().split('').reverse().join('');
+
+  if (result) {
+    alertElement.classList.replace('alert-danger', 'alert-success');
+    alertHeading.textContent = 'Well Done!You entered a Palindrome';
+    results.textContent = `Your phrase reversed is: ${inputReversed}`;
+    alertElement.classList.remove('invisible');
+  }
+  else {
+    alertElement.classList.replace('alert-success', 'alert-danger');
+    alertHeading.textContent = 'Sorry, you did not enter a Palindrome!';
+    results.textContent = `Your phrase reversed is: ${inputReversed}`;
+    alertElement.classList.remove('invisible');
+  }
+}
       </code>
     </pre>
         </div>
         <div class="col-12 col-lg-4">
           <p>The code is structured in one function</p>
-          <h5><code>DisplayMessage()</code></h5>
-          <p>This function displays the message in a sweet alert</p>
+          <h5><code class="code-writeup">GetValues()</code></h5>
+          <p>This function our entry point, and grabs the text input string then passes the value to our display function</p>
+          <h5><code class="code-writeup">CheckForPalindrome()</code></h5>
+          <p>This function takes the input string, removed any spaces or special characters, then makes the remaining characters lower case.  After it has cleaned the string, loops through each character starting with the first letter and checks if its value is equal to its equivalent position working backwards from the last character. If at any point these values are not equal the word is not a palindrome, and the loop returns false. Once we hit the middle of the word, all characters have been checked and passed so we return true.</p>
+          <h5><code class="code-writeup">DisplayResults()</code></h5>
+          <p>This function takes the users input that we passed into it in our entry point, then uses the CheckForPalindrome function to see if the input is a palindrome or not.  If the word/phrase is a palindrome we display a green success alert card with the results. If the word/phrase is not a palindrome, we display a red failed card letting the user know the word is not a palindrome</p>
         </div>
       </div>
 
